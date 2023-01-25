@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>JS Drum Kit - Funny Sounds </title>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+
+  <body>
+    <div class="keys"  style="
+    display: flex; 
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;"
+  >
+      <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">Uepa</span>
+      </div>
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">Rapaz</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">Aeita</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">Ratinho</span>
+      </div>
+      <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">Vish</span>
+      </div>
+      <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">Que isso meu filho calma!</span>
+      </div>
+      <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">Pare!</span>
+      </div>
+      <div data-key="75" class="key">
+        <kbd>K</kbd>
+        <span class="sound">Ele gosta</span>
+      </div>
+      <div data-key="76" class="key">
+        <kbd>L</kbd>
+        <span class="sound">Iraa</span>
+      </div>
+    </div>
+
+    <audio data-key="65" src="sounds/uepa.mp3"></audio>
+    <audio data-key="83" src="sounds/rapaz.mp3"></audio> 
+    <audio data-key="68" src="sounds/aeita.mp3"></audio>
+    <audio data-key="70" src="sounds/ratinho.mp3"></audio>
+    <audio data-key="71" src="sounds/vish.mp3"></audio>
+    <audio data-key="72" src="sounds/que-isso-meu-filho-calma.mp3"></audio>
+    <audio data-key="74" src="sounds/pare.mp3"></audio>
+    <audio data-key="75" src="sounds/ele gosta.mp3"></audio>
+    <audio data-key="76" src="sounds//iraaa.mp3"></audio>
+
+    <script>
+      function playSound(e){
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+        if(!audio) return; // stop the function from running all togethen
+        audio.currentTime = 0; // rewind to the start
+        audio.play();
+        key.classList.add('playing');
+      }
+
+      function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        this.classList.remove('playing')
+      }
+      
+      const keys = document.querySelectorAll('.key');
+      keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+      window.addEventListener('keydown', playSound);
+    </script>
+
+  </body>
+
+
+</html>
